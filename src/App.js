@@ -1,26 +1,22 @@
 import React, { useEffect } from "react";
-import useModal from "./Components/atoms/useModal";
-import Modal from "./Components/modale";
+import useModal from "./hooks/useModal";
+import Modal from "./components/atoms/Modal";
 import { useState, useRef } from "react";
-import MyTask from "./Components/myTask";
+import Todo from './components/atoms/Todo'
 
 export default function App() {
   const titleRef = useRef();
   const dateRef = useRef();
   const memberRef = useRef();
   const descriptRef = useRef();
-  const [task, setTask] = useState([]);
+  const [task, setTodo] = useState([]);
   let [id, setID] = useState(0);
   const { isShowing: isCreateTaskShowed, toggle: toggleCreateTask } =
     useModal();
 
-
-    useEffect(()=>{
-    },[task])
-
   //permet de créer une Task et de l'ajouter a la liste des Task
   const CreateTask = () => {
-    function addTask(e) {
+    function addTask() {
       const title = titleRef.current.value;
       const date = dateRef.current.value;
       const member = memberRef.current.value;
@@ -30,7 +26,7 @@ export default function App() {
 
       if (title === "") return;
       setID(id += 1);
-      setTask((prev) => {
+      setTodo((prev) => {
         return [
           ...prev,
           {
@@ -48,7 +44,7 @@ export default function App() {
     }
 
 
-    //Retourne le formulaire de ma modale
+    //Retourne le formulaire de ma modal
     return (
       <div className="createTask">
         <form>
@@ -85,18 +81,10 @@ export default function App() {
 //permet de modifier une task
   function toggleTodo(id) {
     const newTask = [...task];
-    const todo = newTask.find((todo) => todo.id === id);
+    const todo = task.find((todo) => todo.id === id);
     todo.complete = !todo.complete;
-    setTask(newTask);
+    setTodo(newTask);
   }
-
-
-  
-  function handleClearTodos() {
-    const newTodos = task.filter((todo) => !todo.complete);
-    setTask(newTodos);
-  }
-
 
   //return de mon app
   return (
@@ -109,21 +97,17 @@ export default function App() {
           >
             Créer une task
           </button>
-          <button
-          className="maj"
-          onClick={handleClearTodos}
-          >
-            mise a jour
-          </button>
 
           <Modal isShowing={isCreateTaskShowed} hide={toggleCreateTask}>
             <CreateTask />
           </Modal>
         </div>
         <div className="body">
-        
-          <MyTask task={task} toggleTodo={toggleTodo} />
-        </div>
+
+          {console.log("task", task)}
+    {task.filter((todo) => !todo.complete).map(todo => <Todo key={todo.id} toggleTodo={toggleTodo} todo={todo} />)
+}
+</div>
       </div>
 
       <style jsx="true">{`
