@@ -8,8 +8,8 @@ export default function Task({ todo, toggleTodo }) {
   return (
     <div className="card" onClick={handleTodoClick}>
       <fieldset>
-        <h3></h3>
-        <p>{todo.descript}</p>
+        <h3>{todo.title}</h3>
+        <p>{todo.id}</p>
         <p>{todo.date}</p>
       </fieldset>
     </div>

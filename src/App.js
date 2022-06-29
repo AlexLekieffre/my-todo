@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import useModal from "./hooks/useModal";
 import Modal from "./components/atoms/Modal";
 import { useState, useRef } from "react";
-import Todo from './components/atoms/Todo'
+import Todo from "./components/atoms/Todo";
 
 export default function App() {
   const titleRef = useRef();
@@ -25,7 +25,7 @@ export default function App() {
       const cat = "";
 
       if (title === "") return;
-      setID(id += 1);
+      setID((id += 1));
       setTodo((prev) => {
         return [
           ...prev,
@@ -40,9 +40,7 @@ export default function App() {
           },
         ];
       });
-      
     }
-
 
     //Retourne le formulaire de ma modal
     return (
@@ -77,8 +75,7 @@ export default function App() {
     );
   };
 
-
-//permet de modifier une task
+  //permet de modifier une task
   function toggleTodo(id) {
     const newTask = [...task];
     const todo = task.find((todo) => todo.id === id);
@@ -103,36 +100,20 @@ export default function App() {
           </Modal>
         </div>
         <div className="body">
-
-          {console.log("task", task)}
-    {task.filter((todo) => !todo.complete).map(todo => <Todo key={todo.id} toggleTodo={toggleTodo} todo={todo} />)
-}
-</div>
+          <div>
+            <h1>A Faire {task.filter((todo) => !todo.complete).length}</h1>
+            {task.filter((todo) => !todo.complete)
+              .map((todo) => (
+                <Todo key={todo.id} toggleTodo={toggleTodo} todo={todo} />
+              ))}
+          </div>
+          <div>  <h1>fait {task.filter((todo) => todo.complete).length} </h1>
+            {task.filter((todo) => todo.complete)
+              .map((todo) => (
+                <Todo key={todo.id} toggleTodo={toggleTodo} todo={todo} />
+              ))} </div>
+        </div>
       </div>
-
-      <style jsx="true">{`
-        .App {
-          height : 100%;
-          width : 100%;
-      }
-        }
-
-        button.modal-toggle,
-        input[type="submit"] {
-          background-color: turquoise;
-          cursor: pointer;
-          padding: 1rem 2rem;
-          text-transform: uppercase;
-          border: none;
-        }
-
-        button.modal-toggle:not(:first-child) {
-          margin-left: 10px;
-        }
-        .CreateTask {
-          height: 40px;
-        }
-      `}</style>
     </>
   );
 }
