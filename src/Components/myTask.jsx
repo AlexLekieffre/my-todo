@@ -1,5 +1,5 @@
 import React from 'react'
-import Task from './task'
+import Task from './atoms/task'
 
 export default function MyTask({ task,toggleTodo}) {
   

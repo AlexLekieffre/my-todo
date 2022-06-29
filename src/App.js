@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import useModal from "./Components/atoms/useModal";
 import Modal from "./Components/modale";
 import { useState, useRef } from "react";
-import MyTask from "./Components/V2_Component/atoms/myTask";
+import MyTask from "./Components/myTask";
 
 export default function App() {
   const titleRef = useRef();
